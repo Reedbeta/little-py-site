@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set CanonicalURL = '/' %}
+
+{% import "post_header.html" as post_header %}
+
+{% block content %}
+	<nav class="pagination">
+		<a class="page-right" href="/all/">All Posts</a>
+	</nav>
+	{# Display only the 10 most recent posts, to keep the page size reasonably small #}
+	{% for p in AllPosts[:10] %}
+		<article>
+			{{ post_header.render(p) }}
+			{{ p.summary|absoluteUrls(p.url) }}
+			{% if p.summary|length < p.html|length %}
+				<p><a href="{{ p.url }}">Read more...</a></p>
+			{% endif %}
+		</article>
+		{% if not loop.last %}<hr />{% endif %}
+	{% endfor %}
+	<nav class="pagination">
+		<a class="page-right" href="/all/">All Posts</a>
+	</nav>
+{% endblock %}

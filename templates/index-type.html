@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% set CanonicalURL = '/%s/' % PostType %}
+
+{% import "post_header.html" as post_header %}
+
+{% block content %}
+	<nav class="pagination">
+		<a class="page-right" href="/all/">All Posts</a>
+	</nav>
+	{% for p in Posts %}
+		<article>
+			{{ post_header.render(p) }}
+			{{ p.html|absoluteUrls(p.url) }}
+		</article>
+		{% if not loop.last %}<hr />{% endif %}
+	{% endfor %}
+	<nav class="pagination">
+		<a class="page-right" href="/all/">All Posts</a>
+	</nav>
+{% endblock %}

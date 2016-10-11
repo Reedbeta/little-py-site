@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set CanonicalURL = '/blog/category/' + CategoryName|slugify %}
+{% set PageTitle = CategoryName %}
+
+{% import "post_list.html" as post_list %}
+
+{% block content %}
+	<h1>Posts In “{{ CategoryName|e }}”</h1>
+	{% if CategoryPosts|length > 1 %}
+		<p>There are {{ CategoryPosts|length }} posts about {{ CategoryName|lower|e }}.</p>
+	{% else %}
+		<p>There is 1 post about {{ CategoryName|lower|e }}.</p>
+	{% endif %}	
+	{{ post_list.render(CategoryPosts) }}
+{% endblock %}

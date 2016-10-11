@@ -1,0 +1,13 @@
+{# Render a list of posts grouped by year. Used by all.html and category.html. #}
+{% macro render(posts) %}
+	{% for year, yearPosts in posts|groupby('sortDate.year')|sort(reverse=True) %}
+		{% set year = year if year != datetime.MAXYEAR else 'Undated' %}
+		<h2 id="{{ year|lower }}">{{ year }}</h2>
+		<table class="post-list">
+			{% for p in yearPosts %}
+				<tr><td>{{ (p.date.strftime('%b') + ' %d' % p.date.day) if p.date else '' }}</td>
+				<td><a href="{{ p.url }}">{{ p.title }}</a></td></tr>
+			{% endfor %}
+		</table>
+	{% endfor %}
+{% endmacro %}

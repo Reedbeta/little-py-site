@@ -1,0 +1,24 @@
+{# Helper macros for various things that can appear in posts. #}
+
+{% macro render_attributes(attrs) -%}
+	{%- for k, v in attrs.items() %}{{k}}="{{v|e}}" {% endfor -%}
+{%- endmacro %}
+
+{% macro audio(src) -%}
+	<audio controls {{ render_attributes(kwargs) }}><source src="{{ src }}" /></audio>
+{%- endmacro %}
+
+{% macro video(src) -%}
+	<video controls {{ render_attributes(kwargs) }}><source src="{{ src }}" /></video>
+{%- endmacro %}
+
+{% macro imgcaption(src, caption, float=None) -%}
+	{#- Copy alt text to title text (if it's not already there) so it appears as a tooltip. -#}
+	{%- do kwargs.update({'title':kwargs['alt']}) if 'alt' in kwargs and 'title' not in kwargs else None -%}
+	{%- if not float %}<div class="align-center">{% endif -%}
+	<figure {% if float %}class="float-{{ float }}"{% endif %}>
+		<img src="{{ src }}" {{ render_attributes(kwargs) }} />
+		<figcaption>{{ caption|md }}</figcaption>
+	</figure>
+	{%- if not float %}</div>{% endif -%}
+{%- endmacro %}

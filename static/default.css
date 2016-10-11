@@ -1,0 +1,282 @@
+@charset 'utf-8';
+
+/* basic text formatting */
+* { box-sizing: border-box; }
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+/* main page layout - wide screen
+   content and sidebar are side-by-side; everything's centered */
+@media (min-width: 52.1em) {
+	body { text-align: center; }
+	#content {
+		display: inline-block;
+		vertical-align: top;
+		width: 45em;
+		margin-right: 2em;
+		text-align: left;
+	}
+	#sidebar {
+		display: inline-block;
+		vertical-align: top;
+		width: 20em;
+		margin-left: 2em;
+		text-align: left;
+	}
+	#site-header-aligner, #site-footer-aligner {
+		display: inline-block;
+		width: 69em;	/* nice */
+		text-align: left;
+	}
+}
+/* medium screen - sidebar goes below content */
+@media (min-width: 52.1em) and (max-width: 75em) {
+	#content { margin-right: 0; }
+	#sidebar {
+		width: 45em;
+		margin-left: 0;
+		padding-right: 25em;
+	}
+	#site-header-aligner, #site-footer-aligner {
+		width: 45em;
+	}
+}
+/* narrow screen - everything's full-width with 3em side margins */
+@media (min-width: 40em) and (max-width: 52.1em) {
+	#content, #sidebar, #site-header-aligner, #site-footer-aligner {
+		margin: 0 3em;
+	}
+}
+/* mobile - side margins reduce to 0.5em */
+@media (max-width: 40em) {
+	#content, #sidebar, #site-header-aligner, #site-footer-aligner {
+		margin: 0 .5em;
+	}
+}
+
+/* site header */
+#site-header {
+	background: #444;
+}
+#site-header-aligner {
+	padding-top: .3em;
+}
+#site-header h1 a {
+	color: #fff;
+}
+
+/* site footer */
+#site-footer {
+	height: 18pt;
+	background: #444;
+	color: #fff;
+}
+#site-footer-aligner {
+	height: 18pt;
+	padding: .35em 0;
+}
+#site-footer p {
+	margin: 0;
+	font-size: 8pt;
+	white-space: nowrap;
+}
+#site-footer a {
+	color: #fff;
+}
+html, body {
+	height: 100%;
+}
+#footer-pusher {
+	min-height: 100%;
+	margin-bottom: -18pt;
+}
+#footer-pusher::after {
+	content: "";
+	display: block;
+	height: 18pt;
+}
+
+/* main nav bar */
+#site-header nav { white-space: nowrap; }
+#site-header nav a {
+	display: inline-block;
+	padding: .2em 0.4em;
+	margin: .4em 0 0 0;
+	color: #fff;
+	font-size: 14pt;
+}
+@media (max-width: 40em) {
+	#site-header nav a {
+		padding: .1em .4em;
+		margin-top: .3em;
+		font-size: 12pt;
+	}
+}
+#site-header nav a:first-of-type { margin-left: 0; }
+#site-header nav a:hover {
+	background-color: #bbb;
+}
+#site-header nav a.active {
+	background-color: #fff;
+	color: #000;
+}
+
+/* pagination nav bar */
+.pagination {
+	margin: 4pt 0;
+}
+.pagination::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.pagination .page-left {
+	float: left;
+	text-align: left;
+}
+.pagination .page-right {
+	float: right;
+	text-align: right;
+}
+
+/* social media buttons */
+.twitter-share-button {
+	vertical-align: bottom;
+}
+#___plusone_0 {
+	width: 64px !important;
+}
+
+/* images and various ways of displaying them */
+img, video {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+}
+audio {
+	vertical-align: middle;
+}
+.align-center { text-align: center; }
+figure {
+	display: inline-block;
+}
+figure img { margin: 0; }
+.float-left {
+	float: left;
+	margin: 0 10pt 0 0;
+}
+.float-right {
+	float: right;
+	margin: 0 0 0 10pt;
+}
+@media (max-width: 40em) {
+	figure { display: block; }
+	figure img { margin: 0 auto; }
+	.float-left, .float-right {
+		float: none;
+		margin: 0 auto;
+	}
+}
+
+/* image captions */
+figcaption {
+	max-width: 30em;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* post-list tables, as seen on all-posts and category pages */
+.post-list td {
+	border: none;
+	vertical-align: top;
+}
+.post-list td:first-child {
+	min-width: 4.2em;
+	white-space: nowrap;
+}
+
+/* embedded code */
+code, tt, pre { font-family: monospace; }
+code, tt {
+	background-color: #ececec;
+	padding: 0 0.2em;
+}
+.codehilite {
+	display: inline-block;
+	max-width: 100%;
+	overflow-x: auto;
+	background-color: #f8f8f8;	
+	border: 1px solid #ccc;
+}
+.codehilite pre {
+	margin: 4pt;
+}
+
+/* pygments code highlighting styles:
+   this is default.css from from https://github.com/richleland/pygments-css 
+   (go there to see plenty more highlighting themes too) */
+.codehilite .hll { background-color: #ffffcc }
+.codehilite  { background: #f8f8f8; }
+.codehilite .c { color: #408080; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #FF0000 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666666 } /* Operator */
+.codehilite .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #BC7A00 } /* Comment.Preproc */
+.codehilite .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #408080; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .gr { color: #FF0000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #00A000 } /* Generic.Inserted */
+.codehilite .go { color: #808080 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #0040D0 } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #7D9029 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #880000 } /* Name.Constant */
+.codehilite .nd { color: #AA22FF } /* Name.Decorator */
+.codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #0000FF } /* Name.Function */
+.codehilite .nl { color: #A0A000 } /* Name.Label */
+.codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+.codehilite .mf { color: #666666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */

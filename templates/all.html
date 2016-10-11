@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% set CanonicalURL = '/all/' %}
+
+{% import "post_list.html" as post_list %}
+
+{% block content %}
+	<h1>All Posts</h1>
+	<p>There are {{ AllPosts|length }} posts in total!</p>
+	{{ post_list.render(AllPosts) }}
+{% endblock %}

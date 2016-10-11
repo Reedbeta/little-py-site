@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% set CanonicalURL = Post.url %}
+{% set PageTitle = Post.title|striptags %}
+
+{% import "post_header.html" as post_header %}
+
+{% macro pagination_links() %}
+	{% if PrevPost or NextPost %}
+		<nav class="pagination">
+			{# Note: posts are sorted reverse-chronologically, so the "next" post is actually
+			   one earlier, and "previous" is one later. We render this so that left is earlier,
+			   and right is later. #}
+			{% if NextPost %}<a class="page-left" href="{{ NextPost.url }}">{{ NextPost.title }}</a>{% endif %}
+			{% if PrevPost %}<a class="page-right" href="{{ PrevPost.url }}">{{ PrevPost.title }}</a>{% endif %}
+		</nav>
+	{% endif %}
+{% endmacro %}
+
+{% block content %}
+	{{ pagination_links() }}
+	<article>
+		{{ post_header.render(Post) }}
+		{{ Post.html }}
+		{% if Post.comments or PrevPost or NextPost %}
+			<footer>
+				{% if Post.comments %}
+					<div id="social">
+						<a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+						<span class="fb-like" data-layout="button_count" data-size="large"></span>
+						<g:plusone></g:plusone>
+					</div>
+				{% endif %}
+				{{ pagination_links() }}
+				{% if Post.comments %}
+					<hr />
+					<h2 id="comments"><span class="disqus-comment-count" data-disqus-identifier="{{ Post.url }}">Comments</span> on “{{ Post.title }}”</h2>
+					<div id="disqus_thread"></div>
+					<script>
+						var disqus_config = function () {
+							this.page.url = "{{ SiteDomain + CanonicalURL }}";
+							this.page.identifier = "{{ CanonicalURL }}";
+							this.page.title = "{{ PageTitle }}";
+						};
+						(function() {
+							var d = document, s = d.createElement('script');
+							s.src = 'https://{{ SiteDisqusName }}.disqus.com/embed.js';
+							s.setAttribute('data-timestamp', +new Date());
+							d.body.appendChild(s);
+						})();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				{% endif %}
+			</footer>
+		{% endif %}
+	</article>
+	{% if Post.comments %}
+		<!-- JS for social media share buttons -->
+		<script src="https://platform.twitter.com/widgets.js" charset="utf-8" async defer></script>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  if (d.getElementById(id)) return;
+		  var js = d.createElement(s); js.id = id;
+		  js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+		  d.body.appendChild(js);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+	{% endif %}
+{% endblock %}

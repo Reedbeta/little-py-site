@@ -1,0 +1,3 @@
+# Serve the RSS feed as the index of this directory
+AddType application/rss+xml .xml
+DirectoryIndex index.xml

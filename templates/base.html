@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="author" content="{{ SiteAuthor }}"/>
+	<meta name="description" content="### YOUR DESCRIPTION HERE ###"/>
+	<meta name="keywords" content="### YOUR KEYWORDS HERE ###"/>
+	<meta name="HandheldFriendly" content="True"/>
+	<meta name="MobileOptimized" content="320"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<link rel="stylesheet" type="text/css" href="/default.css"/>
+	<link rel="canonical" href="{{ CanonicalURL }}"/>
+	<link rel="alternate" type="application/rss+xml" href="/feed/" title="{{ SiteTitle|e }}"/>
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$']], processEscapes: true } });</script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" async></script>
+	<title>{% if PageTitle %}{{ PageTitle|e }} – {% endif %}{{ SiteTitle|e }}</title>
+</head>
+<body>
+	<div id="footer-pusher">
+		<header id="site-header">
+			<div id="site-header-aligner">
+				<h1><a href="/">{{ SiteTitle }}</a></h1>
+				<nav>
+					<a href="/"{% if CanonicalURL == '/' or CanonicalURL.startswith('/blog/') %} class="active"{% endif %}>Blog</a>
+					<a href="/about/"{% if CanonicalURL.startswith('/about/') %} class="active"{% endif %}>About Me</a>
+				</nav>
+			</div>
+		</header>
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
+		<div id="sidebar">
+			<h1>Subscribe</h1>
+			<ul>
+				<li><a href="http://cloud.feedly.com/#subscription%2Ffeed%2F{{ SiteDomain|urlencode }}%2Ffeed%2F">Feedly</a></li>
+				<li><a href="/feed/" title="RSS feed">RSS</a></li>
+			</ul>
+			<h1>Recent Posts</h1>
+			<ul>
+				{# Link to the 6 most recent posts here #}
+				{% for p in AllPosts[:6] %}
+					<li><a href="{{ p.url }}">{{ p.title }}</a></li>
+				{% endfor %}
+				<li><a class="page-right" href="/all/">All Posts</a></li>
+			</ul>
+			<h1>Categories</h1>
+			<ul>
+				{% for name, count in AllCategories %}
+					<li><a href="/blog/category/{{ name|slugify }}">{{ name|e }} ({{ count }})</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<footer id="site-footer">
+		<div id="site-footer-aligner">
+			<p>© {{ time.strftime('%Y') }} by {{ SiteAuthor }}.</p>
+		</div>
+	</footer>
+	<script id="dsq-count-scr" src="https://{{ SiteDisqusName }}.disqus.com/count.js" async></script>
+</body>
+</html>

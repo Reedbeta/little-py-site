@@ -1,0 +1,22 @@
+{# Render the title and description line of a post. Used by index.html, index-type.html, and post.html. #}
+{% macro render(p) %}
+	<header>
+		<h1><a href="{{ p.url }}">{{ p.title }}</a></h1>
+		{% if p.date or p.categories or p.comments %}
+			<p>
+				{%- if p.date -%}
+					{{ p.date.strftime('%B') + ' %d, %d' % (p.date.day, p.date.year) }}
+				{%- endif -%}
+				{%- if p.categories -%}
+					{%- for c in p.categories -%}
+						{%- if p.date and loop.first %} · {% endif %}<a href="/blog/category/{{ c|slugify }}/">{{ c|e }}</a>{% if not loop.last %}, {% endif -%}
+					{%- endfor -%}
+				{%- endif -%}
+				{%- if p.comments -%}
+					{%- if p.date or p.categories %} · {% endif -%}
+					<a href="{{ p.url }}#comments" class="disqus-comment-count" data-disqus-identifier="{{ p.url }}">Comments</a>
+				{%- endif -%}
+			</p>
+		{% endif %}
+	</header>
+{% endmacro %}
