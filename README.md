@@ -43,7 +43,7 @@ and recreate it from scratch.
 
 ## Directory Structure
 
-* `content/`---All your posts go in here, as `.md` (Markdown) files. Each `.md` file has some
+* `content/` – All your posts go in here, as `.md` (Markdown) files. Each `.md` file has some
   metadata at the top to set its title, date, and how it gets rendered. See below for more.
 
   The script searches this directory recursively, so you can organize things in subdirectories as you like.
@@ -54,28 +54,28 @@ and recreate it from scratch.
   You can also put other files, such as images, under the `content/` tree. You can reference such
   files in a post's metadata and they'll get copied to the output alongside the post.
 
-* `output/`---The output directory, where the generated HTML will be stored by the script.
+* `output/` – The output directory, where the generated HTML will be stored by the script.
 
-* `static/`---Static files such as CSS and images. They'll get copied to the output.
+* `static/` – Static files such as CSS and images. They'll get copied to the output.
 
-* `templates/`---Jinja template files, called by the script to render the site's pages.
+* `templates/` – Jinja template files, called by the script to render the site's pages.
 
 ## Post Metadata
 
 Metadata uses the [Python-Markdown Meta-Data extension](http://pythonhosted.org/Markdown/extensions/meta_data.html)
 syntax. Supported fields are:
-* `Title`---the title of the post.
-* `Slug`---the URL slug, i.e. `my-cool-post` in `http://domain.com/blog/my-cool-post/`. Generated
+* `Title` – the title of the post.
+* `Slug` – the URL slug, i.e. `my-cool-post` in `http://domain.com/blog/my-cool-post/`. Generated
   automatically from the title, but can be overridden here.
-* `Date`---the publication date/time and timezone of the post. Run `now.py` to print the current
+* `Date` – the publication date/time and timezone of the post. Run `now.py` to print the current
   date/time in the format for this field.
-* `Categories`---list of categories for the post (one per line).
-* `Files`---list of files that should be copied alongside the post in the output (one per line).
+* `Categories` – list of categories for the post (one per line).
+* `Files` – list of files that should be copied alongside the post in the output (one per line).
   Wildcards work here, e.g. `*.png`.
-* `Hidden`---yes/no. Hidden posts get rendered, but don't show up on the index page or in any lists
+* `Hidden` – yes/no. Hidden posts get rendered, but don't show up on the index page or in any lists
   of posts, so the only way to get to them is by typing in or linking to their URL.
-* `Comments`---yes/no, whether comments are enabled on the post. Defaults to yes.
-* `Type`---overrides the post type inferred from the directory structure.
+* `Comments` – yes/no, whether comments are enabled on the post. Defaults to yes.
+* `Type` – overrides the post type inferred from the directory structure.
 
   There are two special types:
   * `test` posts appear only in the dev version of the site, but are left out in production.
